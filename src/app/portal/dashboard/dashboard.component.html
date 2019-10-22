@@ -1,0 +1,27 @@
+
+<app-header></app-header>
+<div class="row">
+  <div class="col-md-3">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <header>
+        <h3>TESTS</h3>
+      </header>
+      <ul class="nav">
+        <li *ngFor="let test of testDetails" (click)="onTestSelected(test)">
+          <div [ngClass]="{'active-test' : (test?.testId == selectedTest?.testId)}">
+            {{test?.testName}}
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <!-- Question Answers -->
+    <div class="question-section">
+      <div *ngFor="let testQuestion of selectedTest?.test">
+        <button type="button" class="btn btn-default">Default</button>
+      </div>
+    </div>
+  </div>
+</div>
