@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as data from './../../common/constants'
+import * as data from './../../shared/constant-files/constants'
 
 @Component({
   selector: 'app-dashboard',

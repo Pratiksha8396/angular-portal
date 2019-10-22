@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
-import { HeaderComponent } from '../common/header/header.component';
-
+import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -21,7 +20,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    SharedModule
   ],
   exports: [RouterModule]
 })
