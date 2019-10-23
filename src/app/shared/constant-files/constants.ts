@@ -51,7 +51,7 @@ export var testQuestions = [
                     }
                 ],
                 "correctAnswer": 2,
-                "question": "Which of the foloowing is the command to create a component [login]?"
+                "question": "Which of the following is the command to create a component [login]?"
             }
         ]
     },
@@ -132,7 +132,7 @@ export var testQuestions = [
                     }
                 ],
                 "correctAnswer": 2,
-                "question": "Which of the foloowing is the command to create a component [login]?"
+                "question": "Which of the following is the command to create a component [login]?"
             }
         ]
     }

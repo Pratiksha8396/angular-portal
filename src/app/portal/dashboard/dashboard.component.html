@@ -1,7 +1,6 @@
-
 <app-header></app-header>
 <div class="row header-top">
-  <div class="col-md-3">
+  <div class="col-md-3 col-sm-3">
     <!-- Sidebar -->
     <div class="sidebar">
       <header>
@@ -16,11 +15,37 @@
       </ul>
     </div>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-8 col-sm-8">
     <!-- Question Answers -->
     <div class="question-section">
-      <div *ngFor="let testQuestion of selectedTest?.test">
-        <button type="button" class="btn btn-default">Default</button>
+      <div class="row">
+        <div *ngFor="let testQuestion of selectedTest?.test; let i = index">
+          <div class="col-md-3">
+            <button type="button" class="btn btn-info btn-large" (click)="onTestQuestionSelected(testQuestion)">Question
+              {{i+1}}</button>
+          </div>
+        </div>
+      </div>
+      <div class="row question" *ngIf="selectedQuestion">
+        <div class="col-md-12">
+          <h5>{{selectedQuestion?.question}}</h5>
+          <!-- <form> -->
+            <div *ngFor="let answer of selectedQuestion?.answer">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="customRadio" name="abc">
+                <label class="custom-control-label" for="customRadio">{{answer?.answer}}</label>
+              </div>
+            </div>
+          <!-- </form> -->
+        </div>
+      </div>
+      <div class="row" *ngIf="selectedQuestion">
+        <div class="col-md-4">
+            <button type="button" class="btn btn-info btn-large" (click)="onPreviousQuestionClicked()">Prev</button>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-info btn-large" (click)="onNextQuestionClicked()">Next</button>
+        </div>
       </div>
     </div>
   </div>

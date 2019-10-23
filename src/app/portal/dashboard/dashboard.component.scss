@@ -1,5 +1,3 @@
-
-
 .sidebar {
     z-index: 1000;
     position: fixed;
@@ -25,12 +23,23 @@
         text-decoration: underline;
     }
 
-    .active-test{
+    .active-test {
         color: #18d26e;
     }
 }
 
 
 .header-top {
-    margin-top: 8%;
+    margin-top: 7%;
+    overflow: hidden;
+}
+
+.question-section {
+    margin-top: 5%;
+    margin-left: 5%;
+    overflow-x: hidden !important;
+    .question {
+        margin-top: 2%;
+        padding: 2%;
+    }
 }
