@@ -1,52 +1,60 @@
 <app-header></app-header>
-<div class="row header-top">
-  <div class="col-md-3 col-sm-3">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <header>
-        <h3>TESTS</h3>
-      </header>
-      <ul class="nav">
-        <li *ngFor="let test of testDetails" (click)="onTestSelected(test)">
-          <div [ngClass]="{'active-test' : (test?.testId == selectedTest?.testId)}">
-            {{test?.testName}}
-          </div>
-        </li>
-      </ul>
+<form [formGroup]="testSeriesForm">
+  <div class="row header-top">
+    <div class="col-md-3 col-sm-3">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <header>
+          <h3>TESTS</h3>
+        </header>
+        <ul class="nav">
+          <li *ngFor="let test of testDetails" (click)="onTestSelected(test)">
+            <div [ngClass]="{'active-test' : (test?.testId == selectedTest?.testId)}">
+              {{test?.testName}}
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <div class="col-md-8 col-sm-8">
-    <!-- Question Answers -->
-    <div class="question-section">
-      <div class="row">
-        <div *ngFor="let testQuestion of selectedTest?.test; let i = index">
-          <div class="col-md-3">
-            <button type="button" class="btn btn-info btn-large" (click)="onTestQuestionSelected(testQuestion)">Question
-              {{i+1}}</button>
+    <div class="col-md-8 col-sm-8">
+      <!-- Question Answers -->
+      <div class="question-section">
+        <div class="row">
+          <div *ngFor="let testQuestion of testSeriesForm.get('test').value ; let i = index">
+            <div class="col-md-3 question-buttons">
+              <button type="button" class="btn btn-info btn-large"
+                (click)="onTestQuestionSelected(testQuestion)">Question {{i+1}}</button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row question" *ngIf="selectedQuestion">
-        <div class="col-md-12">
-          <h5>{{selectedQuestion?.question}}</h5>
-          <!-- <form> -->
-            <div *ngFor="let answer of selectedQuestion?.answer">
-              <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="customRadio" name="abc">
-                <label class="custom-control-label" for="customRadio">{{answer?.answer}}</label>
+        <div formArrayName="test" *ngFor="let test of testSeriesForm.get('test').value; let i = index;">
+          <div *ngIf="test?.id == selectedQuestion?.id">
+            <div class="row question" [formGroupName]="i">
+              <div class="col-md-12">
+                <h5>Q. {{test?.question}}</h5>
+                <div formArrayName="answer" *ngFor="let answer of test.answer; let j = index;">
+                  <div class="custom-control custom-radio" [formGroupName]="j">
+                    <input type="radio" class="custom-control-input" id="radio{{j}}" [value]="answer?.id"
+                      name="selectedAnswer" >
+                    <label class="custom-control-label" for="radio{{j}}">{{answer?.answer}}</label>
+                  </div>
+                </div>
               </div>
             </div>
-          <!-- </form> -->
+          </div>
         </div>
-      </div>
-      <div class="row" *ngIf="selectedQuestion">
-        <div class="col-md-4">
+        <div class="row" *ngIf="selectedQuestion">
+          <div class="col-md-4">
             <button type="button" class="btn btn-info btn-large" (click)="onPreviousQuestionClicked()">Prev</button>
-        </div>
-        <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
             <button type="button" class="btn btn-info btn-large" (click)="onNextQuestionClicked()">Next</button>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn btn-info btn-large" (click)="onSveClicked()">Save</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</form>

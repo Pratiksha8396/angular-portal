@@ -28,11 +28,9 @@ export class DashboardComponent implements OnInit {
 
   onTestQuestionSelected(testQuestion) {
     this.selectedQuestion = testQuestion;
+    // console.log(this.selectedQuestion);
   }
 
-  onPreviousQuestionClicked() {
-
-  }
 
   createForm() {
     this.testSeriesForm = this.fb.group({
@@ -40,8 +38,6 @@ export class DashboardComponent implements OnInit {
       testId: [''],
       test: this.fb.array([])
     })
-
-    console.log(this.testSeriesForm.value);
   }
 
   createQuestionForm() {
@@ -51,19 +47,21 @@ export class DashboardComponent implements OnInit {
       questionId: [''],
       correctAnswer: [''],
       question: [''],
-      answer: this.fb.array([])
+      answer: this.fb.array([]),
     })
   }
 
   createAnswerForm() {
     return this.fb.group({
       answerId: [''],
-      answer: ['']
+      answer: [''],
+      selectedAnswer: ['']
     })
   }
 
   generateTestDetailsForm() {
     this.testSeriesForm.patchValue(this.selectedTest);
+    this.testSeriesForm.setControl('test', this.fb.array([]));
     this.selectedTest.test.forEach((test, testIndex) => {
       (<FormArray>(this.testSeriesForm.get('test'))).push(this.createQuestionForm());
       (<FormArray>this.testSeriesForm.controls['test']).at(testIndex).patchValue({
@@ -71,16 +69,29 @@ export class DashboardComponent implements OnInit {
         testId: test.testId,
         questionId: test.questionId,
         correctAnswer: test.correctAnswer,
-        question: test.question
+        question: test.question,
       })
       test.answer.forEach((answer, answerIndex) => {
         (<FormArray>(<FormArray>this.testSeriesForm.controls['test']).at(testIndex).get('answer')).push(this.createAnswerForm());
         (<FormArray>(<FormArray>this.testSeriesForm.controls['test']).at(testIndex).get('answer')).at(answerIndex).patchValue({
           answerId: answer.answerId,
-          answer: answer.answer
+          answer: answer.answer,
+          selectedAnswer: answer.selectedAnswer
         })
       })
     })
+    console.log(this.testSeriesForm.value);
+  }
+
+  onNextQuestionClicked() {
+
+  }
+
+  onPreviousQuestionClicked() {
+
+  }
+
+  onSveClicked() {
     console.log(this.testSeriesForm.value);
   }
 
